@@ -1,13 +1,23 @@
 import React from 'react'
 
-const Content = ({ items }) => {
+const Content = ({ items, setItems, handleCheck, handleDelete}) => {
+  
   return (
-    <ul>
-      {items.map((item) => (
-      <li key={item.id} >        
-        <label>{item.item}</label>
-      </li>))}
-    </ul>
+    <main>
+      <ul>
+        {items.map((item) => (
+        <li className='item' key={item.id} >
+          <input 
+          type='checkbox' 
+          checked={item.checked}
+          onChange={() => handleCheck(item.id)} />     
+          <label>{item.item}</label>
+          <button onClick={() => handleDelete(item.id)}>Delete
+          </button>
+          
+        </li>))}
+      </ul>
+    </main>
   )
 }
 
