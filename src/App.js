@@ -16,25 +16,18 @@ function App() {
 
   const createItem = (item) => {
   const id = items[items.length - 1].id + 1
-    console.log(id)
-     const myNewItem = { id, checked: false, item }
-     console.log(myNewItem)
-     const listItems = [...items, myNewItem ]
-     console.log(listItems)
+    const myNewItem = { id, checked: false, item }
+    const listItems = [...items, myNewItem ]
     setItems(listItems) 
   }
 
-  
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) => {    
     e.preventDefault()
-    console.log(newItem)
     createItem(newItem)
-    
+    setNewItem('')
   }
   
-  const handleCheck = (id) => {
-    
+  const handleCheck = (id) => {    
     const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked} : item )    
     setItems(listItems)
   }
@@ -44,6 +37,7 @@ function App() {
     const listItems = items.filter((item) => item.id !== id)
     setItems(listItems)
   }
+
 
   return (
     <div className="App">

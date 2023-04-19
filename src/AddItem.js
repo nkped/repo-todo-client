@@ -4,11 +4,11 @@ const AddItem = ({newItem, setNewItem, handleSubmit}) => {
   return (
     <form className='addForm' onSubmit={handleSubmit}>
         <input className='item'
-        type='text' 
-        value={newItem} 
-        onChange={(e) => setNewItem(e.target.value)}
+          type='text' 
+          value={newItem} 
+          onChange={(e) => setNewItem(e.target.value)}
          />
-         <button type='submit' >Submit</button>
+         <button type='submit'>+</button>
     </form>
   )
 }
