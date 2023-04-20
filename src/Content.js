@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Content = ({ items, setItems, handleCheck, handleDelete}) => {
+const Content = ({ items, handleCheck, handleDelete}) => {
   
   return (
     <main>
@@ -8,13 +8,13 @@ const Content = ({ items, setItems, handleCheck, handleDelete}) => {
         {items.map((item) => (
         <li className='item' key={item.id} >
           <input 
-          type='checkbox' 
-          checked={item.checked}
-          onChange={() => handleCheck(item.id)} />     
+            type='checkbox' 
+            checked={item.checked}
+            onChange={() => handleCheck(item.id)} 
+            />     
           <label>{item.item}</label>
-          <button onClick={() => handleDelete(item.id)}>Delete
-          </button>
-          
+          <button onClick={() => handleDelete(item.id)} >Delete
+          </button>          
         </li>))}
       </ul>
     </main>
