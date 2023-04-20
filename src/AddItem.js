@@ -5,6 +5,7 @@ const AddItem = ({newItem, setNewItem, handleSubmit}) => {
     <form className='addForm' onSubmit={handleSubmit}>
         <input className='item'
           type='text' 
+          placeholder='add item here...'
           value={newItem} 
           onChange={(e) => setNewItem(e.target.value)}
          />

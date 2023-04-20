@@ -5,20 +5,21 @@ import { useState } from 'react';
 
 function App() {
 
-  const [ items, setItems ] = useState([
-    { id: 1, checked: true, item: 'vacuum' },
-    { id: 2, checked: false, item: 'wash' },
-    { id: 3, checked: false ,item: 'dust' }
-  ])
+  const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('todolist')))
 
   const [ newItem, setNewItem ] = useState('')
+
+  const setAndSaveItems = (newItems) => {
+    setItems(newItems) 
+    localStorage.setItem('todolist', JSON.stringify(newItems))
+  }
 
 
   const createItem = (item) => {
   const id = items[items.length - 1].id + 1
     const myNewItem = { id, checked: false, item }
     const listItems = [...items, myNewItem ]
-    setItems(listItems) 
+    setAndSaveItems(listItems)
   }
 
   const handleSubmit = (e) => {    
@@ -29,13 +30,13 @@ function App() {
   
   const handleCheck = (id) => {    
     const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked} : item )    
-    setItems(listItems)
+    setAndSaveItems(listItems)
   }
   
   const handleDelete = (id) => {
     console.log(id)
     const listItems = items.filter((item) => item.id !== id)
-    setItems(listItems)
+    setAndSaveItems(listItems)
   }
 
 
