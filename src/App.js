@@ -1,6 +1,7 @@
 import './App.css';
-import Content from './Content.js';
-import AddItem from './AddItem.js';
+import AddItem from './AddItem';
+import SearchItem from './SearchItem';
+import Content from './Content';
 import { useState } from 'react';
 
 function App() {
@@ -8,6 +9,8 @@ function App() {
   const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('todolist')))
 
   const [ newItem, setNewItem ] = useState('')
+
+  const [ search, setSearch ] = useState('')
 
   const setAndSaveItems = (newItems) => {
     setItems(newItems) 
@@ -43,13 +46,18 @@ function App() {
   return (
     <div className="App">
       <h1>ToDo</h1>
+
       <AddItem 
         newItem={newItem} 
         setNewItem={setNewItem} 
         handleSubmit={handleSubmit} 
       />
+      <SearchItem 
+        search={search} 
+        setSearch={setSearch} 
+      />
       <Content 
-        items={items} 
+        items={items.filter((item) => (item.item.toLowerCase().includes(search.toLowerCase())))}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
       />
@@ -58,3 +66,5 @@ function App() {
 }
 
 export default App;
+/* 
+(item) => search.toLowerCase().includes((item.item).toLowerCase()) */
