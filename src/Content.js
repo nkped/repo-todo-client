@@ -3,7 +3,6 @@ import React from 'react'
 const Content = ({ items, handleCheck, handleDelete}) => {
   
   return (
-    <main>
       <ul>
         {items.map((item) => (
         <li className='item' key={item.id} >
@@ -17,7 +16,6 @@ const Content = ({ items, handleCheck, handleDelete}) => {
           </button>          
         </li>))}
       </ul>
-    </main>
   )
 }
 

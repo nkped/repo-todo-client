@@ -10,20 +10,23 @@ function App() {
   const [ items, setItems ] = useState([])
   const [ newItem, setNewItem ] = useState('')
   const [ search, setSearch ] = useState('')
+  const [ fetchError, setFetchError ] = useState(null)
 
   //with empty array as dependency, useEffect only renders at load time
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const response = await fetch(API_URL)
+        if(!response.ok) throw Error('Did not receive todo-list data from json-server')
         const listItems = await response.json()
         console.log(listItems)
-        setItems(listItems)        
+        setItems(listItems) 
+        setFetchError(null)       
       } catch (err) {
-        console.log(err.stack)        
-      }
-    }
-    ( async () => await fetchItems())()      
+        setFetchError(err.message)        
+        }
+    } 
+    (async () => await fetchItems())()      
   }, [])
 
 
@@ -65,11 +68,14 @@ function App() {
         search={search} 
         setSearch={setSearch} 
       />
-      <Content 
-        items={items.filter((item) => (item.item.toLowerCase().includes(search.toLowerCase())))}
-        handleCheck={handleCheck}
-        handleDelete={handleDelete}
-      />
+      <main>
+        {fetchError && <p style={{color: 'red', margin: '10px' }}>{`${fetchError}`}</p>}
+        <Content 
+          items={items.filter((item) => (item.item.toLowerCase().includes(search.toLowerCase())))}
+          handleCheck={handleCheck}
+          handleDelete={handleDelete}
+        />
+      </main>
     </div>
   );
 }
