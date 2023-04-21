@@ -2,27 +2,25 @@ import './App.css';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import Content from './Content';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const API_URL = 'http://localhost:3500/items'
 
-  const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('todolist')))
-
+  const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('todolist')) || [])
   const [ newItem, setNewItem ] = useState('')
-
   const [ search, setSearch ] = useState('')
 
-  const setAndSaveItems = (newItems) => {
-    setItems(newItems) 
-    localStorage.setItem('todolist', JSON.stringify(newItems))
-  }
+  useEffect(() => {
+    localStorage.setItem('todolist', JSON.stringify(items))  
+  }, [items])
 
 
   const createItem = (item) => {
   const id = items[items.length - 1].id + 1
     const myNewItem = { id, checked: false, item }
     const listItems = [...items, myNewItem ]
-    setAndSaveItems(listItems)
+    setItems(listItems)
   }
 
   const handleSubmit = (e) => {    
@@ -33,13 +31,13 @@ function App() {
   
   const handleCheck = (id) => {    
     const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked} : item )    
-    setAndSaveItems(listItems)
+    setItems(listItems)
   }
   
   const handleDelete = (id) => {
     console.log(id)
     const listItems = items.filter((item) => item.id !== id)
-    setAndSaveItems(listItems)
+    setItems(listItems)
   }
 
 
@@ -66,5 +64,3 @@ function App() {
 }
 
 export default App;
-/* 
-(item) => search.toLowerCase().includes((item.item).toLowerCase()) */
