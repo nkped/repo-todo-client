@@ -7,13 +7,24 @@ import { useState, useEffect } from 'react';
 function App() {
   const API_URL = 'http://localhost:3500/items'
 
-  const [ items, setItems ] = useState(JSON.parse(localStorage.getItem('todolist')) || [])
+  const [ items, setItems ] = useState([])
   const [ newItem, setNewItem ] = useState('')
   const [ search, setSearch ] = useState('')
 
+  //with empty array as dependency, useEffect only renders at load time
   useEffect(() => {
-    localStorage.setItem('todolist', JSON.stringify(items))  
-  }, [items])
+    const fetchItems = async () => {
+      try {
+        const response = await fetch(API_URL)
+        const listItems = await response.json()
+        console.log(listItems)
+        setItems(listItems)        
+      } catch (err) {
+        console.log(err.stack)        
+      }
+    }
+    ( async () => await fetchItems())()      
+  }, [])
 
 
   const createItem = (item) => {
