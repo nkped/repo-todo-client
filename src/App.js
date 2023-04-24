@@ -12,7 +12,7 @@ function App() {
   const [ search, setSearch ] = useState('')
   const [ fetchError, setFetchError ] = useState(null)
 
-  //with empty array as dependency, useEffect only renders at load time
+  //with empty array as dependency useEffect only renders at load time
   useEffect(() => {
     const fetchItems = async () => {
       try {
