@@ -48,7 +48,6 @@ function App() {
     }
     const result = await apiRequest(API_URL, postOptions);
     if (result) setFetchError(result);
-
   }
 
   const handleSubmit = (e) => {    
@@ -57,10 +56,27 @@ function App() {
     setNewItem('')
   }
   
-  const handleCheck = (id) => {    
+  const handleCheck = async (id) => {    
     const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked} : item )    
     setItems(listItems)
+
+    const myItem = listItems.filter( (item) => item.id === id )
+
+    const updateOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({checked: myItem[0].checked})
+    }
+
+    const reqURL = `${API_URL}/${id}`
+
+    const result = await apiRequest( reqURL, updateOptions )
+
+    if (result) setFetchError(result);
   }
+  
   
   const handleDelete = (id) => {
     console.log(id)

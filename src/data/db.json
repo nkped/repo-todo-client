@@ -12,7 +12,7 @@
     },
     {
       "id": 3,
-      "checked": true,
+      "checked": false,
       "item": "clean"
     },
     {
@@ -24,6 +24,11 @@
       "id": 5,
       "checked": false,
       "item": "work out"
+    },
+    {
+      "id": 6,
+      "checked": true,
+      "item": "eat"
     }
   ]
 }
