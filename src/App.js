@@ -11,7 +11,7 @@ function App() {
   const [ newItem, setNewItem ] = useState('')
   const [ search, setSearch ] = useState('')
   const [ fetchError, setFetchError ] = useState(null)
-
+  const [ isLoading, setIsLoading ] = useState(true)
   //with empty array as dependency useEffect only renders at load time
   useEffect(() => {
     const fetchItems = async () => {
@@ -24,6 +24,9 @@ function App() {
         setFetchError(null)       
       } catch (err) {
         setFetchError(err.message)        
+        }
+        finally {
+          setIsLoading(false)
         }
     } 
     (async () => await fetchItems())()      
@@ -69,7 +72,8 @@ function App() {
         setSearch={setSearch} 
       />
       <main>
-        {fetchError && <p style={{color: 'red', margin: '10px' }}>{`${fetchError}`}</p>}
+        {isLoading && <p>Loading items from json-server...</p>}
+        {fetchError && !isLoading && <p style={{color: 'red', margin: '10px' }}>{`${fetchError}`}</p>}
         <Content 
           items={items.filter((item) => (item.item.toLowerCase().includes(search.toLowerCase())))}
           handleCheck={handleCheck}
