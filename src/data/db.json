@@ -1,7 +1,29 @@
 {
-    "items": [
-    { "id": 1, "checked": false, "item": "shop" },
-    { "id": 2, "checked": false, "item": "walk" },
-    { "id": 3, "checked": true, "item": "clean" }
-    ]
+  "items": [
+    {
+      "id": 1,
+      "checked": false,
+      "item": "shop"
+    },
+    {
+      "id": 2,
+      "checked": false,
+      "item": "walk"
+    },
+    {
+      "id": 3,
+      "checked": true,
+      "item": "clean"
+    },
+    {
+      "id": 4,
+      "checked": false,
+      "item": "run"
+    },
+    {
+      "id": 5,
+      "checked": false,
+      "item": "work out"
+    }
+  ]
 }

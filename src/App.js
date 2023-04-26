@@ -2,6 +2,7 @@ import './App.css';
 import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import Content from './Content';
+import apiRequest from './apiRequest';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -19,7 +20,6 @@ function App() {
         const response = await fetch(API_URL)
         if(!response.ok) throw Error('Did not receive todo-list data from json-server')
         const listItems = await response.json()
-        console.log(listItems)
         setItems(listItems) 
         setFetchError(null)       
       } catch (err) {
@@ -33,11 +33,22 @@ function App() {
   }, [])
 
 
-  const createItem = (item) => {
-  const id = items[items.length - 1].id + 1
+  const createItem = async (item) => {
+    const id = items[items.length - 1].id + 1
     const myNewItem = { id, checked: false, item }
     const listItems = [...items, myNewItem ]
     setItems(listItems)
+
+    const postOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(myNewItem)
+    }
+    const result = await apiRequest(API_URL, postOptions);
+    if (result) setFetchError(result);
+
   }
 
   const handleSubmit = (e) => {    
